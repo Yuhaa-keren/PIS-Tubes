@@ -37,31 +37,8 @@ class PortfolioApiController extends Controller
 
     public function show($id)
     {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
         $portfolio = Portfolio::findOrFail($id);
         return response()->json($portfolio);
->>>>>>> Stashed changes
-=======
-        $portfolio = Portfolio::findOrFail($id);
-        return response()->json($portfolio);
->>>>>>> Stashed changes
-=======
-        $portfolio = Portfolio::findOrFail($id);
-        return response()->json($portfolio);
->>>>>>> Stashed changes
-=======
-        $portfolio = Portfolio::findOrFail($id);
-        return response()->json($portfolio);
->>>>>>> Stashed changes
-=======
-        $portfolio = Portfolio::findOrFail($id);
-        return response()->json($portfolio);
->>>>>>> Stashed changes
         try {
             // Ambil data portfolio berdasarkan ID dan pastikan itu milik user yang sedang login
             // Gunakan ->with('skills') untuk memuat relasi skills

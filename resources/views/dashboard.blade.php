@@ -80,36 +80,18 @@
                     <i class="fas fa-calendar mr-1"></i>
                     Deadline: {{ $post->deadline->format('M d, Y') }}
                 </span>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                @if($post->user_id != auth()->id()) {{-- Hanya tampilkan tombol kontak jika bukan post sendiri --}}
-                    {{-- Tombol Contact/Offer Help akan jadi link Email --}}
-=======
-                @if($post->user_id != auth()->id()) 
->>>>>>> Stashed changes
-=======
-                @if($post->user_id != auth()->id()) 
->>>>>>> Stashed changes
-=======
-                @if($post->user_id != auth()->id()) 
->>>>>>> Stashed changes
-=======
-                @if($post->user_id != auth()->id()) 
->>>>>>> Stashed changes
-=======
-                @if($post->user_id != auth()->id()) 
->>>>>>> Stashed changes
-                    <a href="mailto:{{ $post->user->email }}" 
-                       class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm inline-flex items-center">
-                        <i class="fas fa-envelope mr-2"></i> {{ $post->type == 'open' ? 'Contact' : 'Offer Help' }}
+
+                @if($post->user_id != auth()->id())
+                    <a href="mailto:{{ $post->user->email }}"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm inline-flex items-center">
+                        <i class="fas fa-envelope mr-2"></i>
+                        {{ $post->type == 'open' ? 'Contact' : 'Offer Help' }}
                     </a>
                 @else
                     <span class="text-sm text-gray-500">Your Post</span>
                 @endif
             </div>
+
         </div>
         @endforeach
     </div>

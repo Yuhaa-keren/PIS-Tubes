@@ -14,11 +14,6 @@ class ProfileController extends Controller
 {
     public function show(?User $user = null)
     {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
         $targetUser = $user ?? Auth::user(); 
 
         if (!$targetUser) {
@@ -38,15 +33,7 @@ class ProfileController extends Controller
         $skills = Skill::orderBy('name')->get(); 
 
         return view('profile', compact('targetUser', 'warnings', 'portfolios', 'skills')); 
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
         $displayUser = $user ?? Auth::user();
 
         if (!$displayUser) {
@@ -60,19 +47,7 @@ class ProfileController extends Controller
         $portfolios = $displayUser->portfolios()->with('skills')->get();
         $skills = Skill::all();
         return view('profile', compact('displayUser', 'warnings', 'portfolios', 'skills'));
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
     }
 
     public function update(Request $request)
