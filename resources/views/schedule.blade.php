@@ -282,29 +282,13 @@
     function closeDeleteScheduleModal() {
         document.getElementById('deleteScheduleModal').classList.add('hidden');
     }
-<<<<<<< Updated upstream
 
-=======
-    
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     function editSchedule(scheduleId) {
-        fetch(`/api/schedules/${scheduleId}`, { 
+        fetch(`{{ url('/api/schedules') }}/${scheduleId}`, { 
             method: 'GET',
             headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
             }
         })
         .then(response => {
@@ -323,7 +307,6 @@
                 participantName = data.user1.name; 
             }
             document.getElementById('editScheduleParticipantName').textContent = participantName;
-
 
             document.getElementById('editScheduleDescription').value = data.notes || ''; 
 
@@ -361,7 +344,7 @@
                 }
             });
 
-            document.getElementById('editScheduleForm').action = `/schedule/${data.id}`;
+            document.getElementById('editScheduleForm').action = `{{ url('/schedule') }}/${data.id}`;
 
             document.getElementById('editScheduleModal').classList.remove('hidden');
         })
@@ -370,44 +353,12 @@
             alert('Gagal mengambil data jadwal. Silakan coba lagi. Cek console browser untuk detail.');
         });
     }
-<<<<<<< Updated upstream
 
-=======
-    
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     function deleteSchedule(scheduleId) {
         document.getElementById('deleteScheduleModal').classList.remove('hidden');
-        document.getElementById('deleteScheduleForm').action = `/schedule/${scheduleId}`;
+        document.getElementById('deleteScheduleForm').action = `{{ url('/schedule') }}/${scheduleId}`;
     }
-<<<<<<< Updated upstream
 
-=======
-    
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     document.querySelector('#createScheduleModal form').addEventListener('submit', function(e) {
         const date = document.getElementById('scheduled_date').value;
         const time = document.getElementById('scheduled_time').value;

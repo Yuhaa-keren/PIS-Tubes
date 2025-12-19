@@ -107,7 +107,7 @@
                                         </a>
                                     @endif
                                     @if($portfolio->file_path)
-                                        <a href="{{ Storage::url($portfolio->file_path) }}" target="_blank" class="text-green-600 hover:text-green-900 text-sm">
+                                        <a href="{{ asset('storage/'.$portfolio->file_path) }}" target="_blank" class="text-green-600 hover:text-green-900 text-sm">
                                             <i class="fas fa-file mr-1"></i>
                                             View File
                                         </a>
@@ -450,7 +450,7 @@
 
     function editPortfolio(portfolioId) {
         // Fetch data portfolio dari API (harus return JSON: {title, description, link, file_path, skills:[{id,...}] })
-        fetch(`/api/portfolios/${portfolioId}`, {
+        fetch(`{{ url('/api/portfolios') }}/${portfolioId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -467,7 +467,7 @@
             document.getElementById('editPortfolioLink').value = data.link ?? '';
 
             // Set action form untuk update
-            document.getElementById('editPortfolioForm').action = `/portfolio/${portfolioId}`;
+            document.getElementById('editPortfolioForm').action = `{{ url('/portfolio') }}/${portfolioId}`;
 
             // Reset dan tandai checkbox skills
             const skillsContainer = document.getElementById('editPortfolioSkills');
@@ -489,7 +489,7 @@
 
             if (data.file_path) {
                 const fileName = data.file_path.split('/').pop();
-                currentFileDisplay.innerHTML = `Current file: <a href="/storage/${data.file_path}" target="_blank" class="text-blue-500 hover:underline">${fileName}</a>`;
+                currentFileDisplay.innerHTML = `Current file: <a href="{{ asset('storage') }}/${data.file_path}" target="_blank" class="text-blue-500 hover:underline">${fileName}</a>`;
                 currentFileDisplay.classList.remove('hidden');
             } else {
                 currentFileDisplay.classList.add('hidden');
@@ -506,7 +506,7 @@
 
     function deletePortfolio(portfolioId) {
         document.getElementById('deletePortfolioModal').classList.remove('hidden');
-        document.getElementById('deletePortfolioForm').action = `/portfolio/${portfolioId}`;
+        document.getElementById('deletePortfolioForm').action = `{{ url('/portfolio') }}/${portfolioId}`;
     }
 </script>
 @endsection

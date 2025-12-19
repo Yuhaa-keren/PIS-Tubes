@@ -345,12 +345,12 @@
     
     function editPost(postId) {
         document.getElementById('editModal').classList.remove('hidden');
-        document.getElementById('editForm').action = '/posts/' + postId;
+        document.getElementById('editForm').action = '{{ url('/posts') }}/' + postId;
     }
     
     function deletePost(postId) {
         document.getElementById('deleteModal').classList.remove('hidden');
-        document.getElementById('deleteForm').action = '/posts/' + postId;
+        document.getElementById('deleteForm').action = '{{ url('/posts') }}/' + postId;
     }
     
     window.onclick = function(event) {

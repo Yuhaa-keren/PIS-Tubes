@@ -37,17 +37,12 @@ class PortfolioApiController extends Controller
 
     public function show($id)
     {
-        $portfolio = Portfolio::findOrFail($id);
-        return response()->json($portfolio);
         try {
-            // Ambil data portfolio berdasarkan ID dan pastikan itu milik user yang sedang login
-            // Gunakan ->with('skills') untuk memuat relasi skills
-            $portfolio = Portfolio::where('user_id', Auth::id())
-                                ->with('skills') // Memuat relasi skills
-                                ->find($id);
+            // Ambil data portfolio berdasarkan ID dengan relasi skills
+            $portfolio = Portfolio::with('skills')->find($id);
 
             if (!$portfolio) {
-                return response()->json(['message' => 'Portfolio not found or unauthorized.'], 404);
+                return response()->json(['message' => 'Portfolio not found.'], 404);
             }
 
             // Kembalikan data portfolio sebagai JSON
@@ -55,8 +50,7 @@ class PortfolioApiController extends Controller
 
         } catch (\Exception $e) {
             // Log error untuk debugging di server
-            Log::error('Error fetching single portfolio item via API:', [
-                'user_id' => Auth::id(),
+            \Illuminate\Support\Facades\Log::error('Error fetching single portfolio item via API:', [
                 'portfolio_id' => $id,
                 'error_message' => $e->getMessage(),
                 'file' => $e->getFile(),

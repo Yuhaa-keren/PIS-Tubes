@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             'role' => 'mahasiswa',
         ]);
 
-        $this->call(AdminUserSeeder::class); 
+        $this->call(AdminUserSeeder::class);
+        $this->call(SkillSeeder::class);
     }
 
 }
