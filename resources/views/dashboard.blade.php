@@ -344,8 +344,51 @@
     }
     
     function editPost(postId) {
-        document.getElementById('editModal').classList.remove('hidden');
-        document.getElementById('editForm').action = '{{ url('/posts') }}/' + postId;
+        // Fetch post data from server
+        fetch('{{ url('/api/posts') }}/' + postId)
+            .then(response => response.json())
+            .then(post => {
+                // Set form action
+                document.getElementById('editForm').action = '{{ url('/posts') }}/' + postId;
+                
+                // Populate form fields
+                document.getElementById('editTitle').value = post.title;
+                document.getElementById('editDescription').value = post.description;
+                
+                // Set post type radio
+                if (post.type === 'open') {
+                    document.getElementById('editTypeOpen').checked = true;
+                } else {
+                    document.getElementById('editTypeNeed').checked = true;
+                }
+                
+                // Set deadline (format: YYYY-MM-DD)
+                if (post.deadline) {
+                    document.getElementById('editDeadline').value = post.deadline.split('T')[0];
+                }
+                
+                // Set preference
+                document.getElementById('editPreference').value = post.preference;
+                
+                // Clear all skill checkboxes first
+                const skillCheckboxes = document.querySelectorAll('#editSkills input[type="checkbox"]');
+                skillCheckboxes.forEach(cb => cb.checked = false);
+                
+                // Check the skills that belong to this post
+                if (post.skills) {
+                    post.skills.forEach(skill => {
+                        const checkbox = document.querySelector(`#editSkills input[value="${skill.id}"]`);
+                        if (checkbox) checkbox.checked = true;
+                    });
+                }
+                
+                // Show modal after data is loaded
+                document.getElementById('editModal').classList.remove('hidden');
+            })
+            .catch(error => {
+                console.error('Error fetching post:', error);
+                alert('Failed to load post data');
+            });
     }
     
     function deletePost(postId) {

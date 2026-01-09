@@ -79,4 +79,20 @@ class ProfileController extends Controller
 
         return redirect()->route('profile')->with('success', 'Profile updated successfully!');
     }
+
+    /**
+     * Reset profile data (department, batch, description) except name and email
+     */
+    public function resetProfile()
+    {
+        $user = Auth::user();
+
+        $user->update([
+            'department' => '',
+            'batch' => '',
+            'description' => null,
+        ]);
+
+        return redirect()->route('profile')->with('success', 'Profile berhasil direset! Data department, batch, dan deskripsi telah dihapus.');
+    }
 }

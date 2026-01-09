@@ -12,9 +12,9 @@ class Warning extends Model
 
     protected $fillable = [
         'user_id', 
-        'title',
-        'description',
-        'level',
+        'subject',
+        'message',
+        'warning_type',
         'expires_at',
         'status',
         'admin_id',

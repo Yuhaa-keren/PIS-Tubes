@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
     // Profile
     Route::get('/profile/{user?}', [ProfileController::class, 'show'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/reset', [ProfileController::class, 'resetProfile'])->name('profile.reset');
 
     // Portfolio
     Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');

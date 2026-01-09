@@ -21,10 +21,14 @@
                 </div>
 
                 @if($targetUser->id == auth()->id())
-                    <div class="mt-6">
+                    <div class="mt-6 space-y-2">
                         <button onclick="openEditProfileModal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
                             <i class="fas fa-edit mr-2"></i>
                             Edit Profile
+                        </button>
+                        <button onclick="openResetProfileModal()" class="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-undo mr-2"></i>
+                            Reset Profile
                         </button>
                     </div>
                 @endif
@@ -39,8 +43,8 @@
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Your Warnings</h3>
                     @forelse($warnings as $warning)
                         <div class="bg-pink-100 border-l-4 border-pink-500 text-pink-700 p-4 mb-3 rounded">
-                            <p class="font-bold">{{ $warning->title }} ({{ $warning->level }})</p>
-                            <p class="text-sm">{{ $warning->description }}</p>
+                            <p class="font-bold">{{ $warning->subject }} ({{ $warning->warning_type }})</p>
+                            <p class="text-sm">{{ $warning->message }}</p>
                             @if($warning->admin)
                                 <p class="text-xs text-gray-600">Oleh Admin: {{ $warning->admin->name }}</p>
                             @endif
@@ -400,6 +404,45 @@
             </div>
         </div>
     </div>
+
+    <!-- Reset Profile Modal -->
+    <div id="resetProfileModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                    <i class="fas fa-exclamation-triangle text-red-600"></i>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mt-4">Reset Profile</h3>
+                <div class="mt-2 px-7 py-3">
+                    <p class="text-sm text-gray-500">
+                        Apakah Anda yakin ingin mereset profile? Data berikut akan dihapus:
+                    </p>
+                    <ul class="text-sm text-gray-600 mt-2 text-left list-disc list-inside">
+                        <li>Department</li>
+                        <li>Batch Year</li>
+                        <li>Deskripsi</li>
+                    </ul>
+                    <p class="text-sm text-gray-500 mt-2">
+                        <strong>Nama dan email</strong> akan tetap dipertahankan.
+                    </p>
+                </div>
+                <div class="flex justify-center space-x-3 mt-4">
+                    <button onclick="closeResetProfileModal()"
+                            class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                        Batal
+                    </button>
+                    <form action="{{ route('profile.reset') }}" method="POST" class="inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                                class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                            Reset Profile
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endif
 
 <script>
@@ -410,6 +453,16 @@
 
     function closeEditProfileModal() {
         const el = document.getElementById('editProfileModal');
+        if (el) el.classList.add('hidden');
+    }
+
+    function openResetProfileModal() {
+        const el = document.getElementById('resetProfileModal');
+        if (el) el.classList.remove('hidden');
+    }
+
+    function closeResetProfileModal() {
+        const el = document.getElementById('resetProfileModal');
         if (el) el.classList.add('hidden');
     }
 
